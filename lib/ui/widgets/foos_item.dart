@@ -1,4 +1,5 @@
 import 'package:admin/ui/screens/update_food.dart';
+import 'package:admin/utilities/colors.dart';
 import 'package:admin/utilities/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +62,10 @@ class FoodItem extends StatelessWidget {
                         onPressed: () => Navigator.of(context).pushNamed(
                             Routes.updateFood,
                             arguments: UpdateFoodArgs(id)),
-                        icon: const Icon(Icons.edit))
+                        icon: const Icon(
+                          Icons.edit,
+                          color: AppColors.brown1,
+                        ))
                   ],
                 )
               ],

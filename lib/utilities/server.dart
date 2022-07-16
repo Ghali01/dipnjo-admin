@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Server {
-  static const String host = '127.0.0.1:8000';
-  // static const String host = '10.0.2.2:8000';
+  // static const String host = '127.0.0.1:8000';
+  // static const String host = 'ghale02.pythonanywhere.com';
+  static const String host = '10.0.2.2:8000';
   static const String protocol = 'http';
   static Future<http.Response> send(Function method, String path,
       {Object? body,

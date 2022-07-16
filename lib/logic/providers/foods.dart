@@ -127,4 +127,52 @@ class FoodsAPI {
     }
     throw Exception();
   }
+
+  static Future<String> getAds() async {
+    http.Response response =
+        await Server.send(http.get, 'foods/advertise-admin');
+    print(response.body);
+    if (response.statusCode == 200) {
+      return utf8.decode(response.bodyBytes);
+    }
+
+    throw Exception();
+  }
+
+  static Future<void> deleteAd(int id) async {
+    http.Response response =
+        await Server.send(http.delete, 'foods/advertise-admin/$id');
+    if (response.statusCode == 204) {
+      return;
+    }
+    throw Exception();
+  }
+
+  static Future<String> addAd(
+      String title, String subtitle, int food, String image) async {
+    dio.Dio dioO = dio.Dio();
+    dio.Response response = await dioO.post(
+      Server.getAbsoluteUrl('/foods/advertise-admin'),
+      data: dio.FormData.fromMap({
+        "title": title,
+        "subTitle": subtitle,
+        'food': food,
+        'image': await dio.MultipartFile.fromFile(image),
+      }),
+    );
+    if (response.statusCode == 201) {
+      return response.toString();
+    }
+    throw Exception();
+  }
+
+  static Future<String> getAllFoods() async {
+    http.Response response = await Server.send(http.get, 'foods/all');
+
+    if (response.statusCode == 200) {
+      return utf8.decode(response.bodyBytes);
+    }
+
+    throw Exception();
+  }
 }

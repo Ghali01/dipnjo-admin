@@ -1,6 +1,7 @@
 import 'package:admin/logic/controllers/categories.dart';
 import 'package:admin/logic/controllers/category_dialog.dart';
 import 'package:admin/logic/models/category_dialog.dart';
+import 'package:admin/utilities/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,7 +48,15 @@ class CategoryDialog extends StatelessWidget {
                       style: const TextStyle(fontSize: 26),
                     ),
                     TextField(
+                      cursorColor: AppColors.brown1,
                       controller: controller,
+                      decoration: const InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.brown2,
+                          ),
+                        ),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

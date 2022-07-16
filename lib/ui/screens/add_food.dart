@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:admin/logic/controllers/add_food.dart';
 import 'package:admin/logic/models/add_food.dart';
+import 'package:admin/utilities/colors.dart';
 import 'package:admin/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,39 +57,67 @@ class AddFoodPage extends StatelessWidget {
               child: Column(
                 children: [
                   TextFormField(
+                    cursorColor: AppColors.brown1,
                     controller: name,
                     validator: isNotEmpty,
-                    decoration: InputDecoration(hintText: "Name"),
+                    decoration: const InputDecoration(
+                        hintText: "Name",
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.brown2))),
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   TextFormField(
+                    cursorColor: AppColors.brown1,
                     controller: price,
                     validator: validatePrice,
                     keyboardType: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'\d|\.?')),
                     ],
-                    decoration: InputDecoration(hintText: "Price"),
+                    decoration: InputDecoration(
+                      hintText: "Price",
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.brown2,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   TextFormField(
+                    cursorColor: AppColors.brown1,
                     controller: points,
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(hintText: "Repalce Point"),
+                    decoration: InputDecoration(
+                      hintText: "Repalce Point",
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.brown2,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   TextFormField(
+                    cursorColor: AppColors.brown1,
                     controller: desc,
                     minLines: 3,
                     maxLines: 7,
-                    decoration: InputDecoration(hintText: 'Description'),
+                    decoration: InputDecoration(
+                      hintText: 'Description',
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.brown2,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 8,
@@ -142,14 +171,23 @@ class AddFoodPage extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  cursorColor: AppColors.brown1,
                                   validator: isNotEmpty,
                                   controller: state[index]['name'],
-                                  decoration: InputDecoration(hintText: 'name'),
+                                  decoration: InputDecoration(
+                                    hintText: 'name',
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: AppColors.brown2,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               const Text(':'),
                               Expanded(
                                 child: TextFormField(
+                                  cursorColor: AppColors.brown1,
                                   controller: state[index]['price'],
                                   validator: validatePrice,
                                   keyboardType: TextInputType.number,
@@ -157,15 +195,24 @@ class AddFoodPage extends StatelessWidget {
                                     FilteringTextInputFormatter.allow(
                                         RegExp(r'\d|\.?')),
                                   ],
-                                  decoration:
-                                      InputDecoration(hintText: 'price'),
+                                  decoration: InputDecoration(
+                                    hintText: 'price',
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: AppColors.brown2,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               IconButton(
                                   onPressed: () => ctx
                                       .read<AddFoodCubit>()
                                       .removeAddition(index),
-                                  icon: const Icon(Icons.delete))
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ))
                             ],
                           ),
                         );

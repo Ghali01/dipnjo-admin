@@ -2,7 +2,10 @@ import 'package:admin/logic/controllers/categories.dart';
 import 'package:admin/logic/controllers/category_food.dart';
 import 'package:admin/logic/models/categories.dart';
 import 'package:admin/ui/screens/category_food.dart';
+import 'package:admin/ui/widgets/appbar.dart';
 import 'package:admin/ui/widgets/categories_tabs.dart';
+import 'package:admin/ui/widgets/drawer.dart';
+import 'package:admin/utilities/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +14,11 @@ class FoodsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: PreferredSize(
+        preferredSize: const Size(double.infinity, 55),
+        child: AppAppBar(title: 'Menu'),
+      ),
+      drawer: AppDrawer(),
       body: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => CategoriesCubit()),
@@ -43,14 +50,19 @@ class FoodsPage extends StatelessWidget {
               );
             } else {
               if (state.categories!.isEmpty) {
-                return const Center(child: Text('no categories'));
+                return Column(
+                  children: [
+                    CategoriesTabs(categories: state.categories!),
+                    const Expanded(child: Center(child: Text('no categories'))),
+                  ],
+                );
               }
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CategoriesTabs(categories: state.categories!),
-                  Expanded(
-                    child: const CategoryFood(),
+                  const Expanded(
+                    child: CategoryFood(),
                   )
                 ],
               );

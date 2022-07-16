@@ -1,5 +1,6 @@
 import 'package:admin/logic/controllers/offer_dialog.dart';
 import 'package:admin/logic/models/offer_dialog.dart';
+import 'package:admin/utilities/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,6 +54,13 @@ class OfferDialog extends StatelessWidget {
                       builder: (context) {
                         return DropdownButtonFormField<String>(
                             value: '1',
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.brown2,
+                                ),
+                              ),
+                            ),
                             items: const [
                               DropdownMenuItem(
                                 value: '1',
@@ -71,12 +79,21 @@ class OfferDialog extends StatelessWidget {
                       height: 8,
                     ),
                     TextFormField(
+                      cursorColor: AppColors.brown1,
                       controller: value,
                       validator: validatePrice,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'\d|\.?'))
                       ],
+                      decoration: const InputDecoration(
+                        hintText: "Offer Value",
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.brown2,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 8,
@@ -88,7 +105,14 @@ class OfferDialog extends StatelessWidget {
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'\d|-|:| '))
                       ],
-                      decoration: InputDecoration(hintText: 'yyyy-mm-dd hh:MM'),
+                      decoration: const InputDecoration(
+                        hintText: 'yyyy-mm-dd hh:MM',
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.brown2,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 8,

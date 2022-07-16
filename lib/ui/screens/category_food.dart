@@ -3,6 +3,7 @@ import 'package:admin/logic/controllers/category_food.dart';
 import 'package:admin/logic/models/category_food.dart';
 import 'package:admin/ui/screens/add_food.dart';
 import 'package:admin/ui/widgets/foos_item.dart';
+import 'package:admin/utilities/colors.dart';
 import 'package:admin/utilities/routes.dart';
 import 'package:admin/utilities/server.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,8 @@ class CategoryFood extends StatelessWidget {
                             arguments: AddFoodArgs(
                               context.read<CategoriesCubit>().state.currentId!,
                             )),
-                    child: Icon(Icons.add),
+                    backgroundColor: AppColors.brown4,
+                    child: const Icon(Icons.add),
                   ),
                 ))
           ],

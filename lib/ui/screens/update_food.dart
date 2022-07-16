@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:admin/logic/controllers/update_food.dart';
 import 'package:admin/logic/models/update_food.dart';
 import 'package:admin/ui/screens/offer_dialog.dart';
+import 'package:admin/utilities/colors.dart';
 import 'package:admin/utilities/routes.dart';
 import 'package:admin/utilities/server.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,7 @@ class UpdateFoodPage extends StatelessWidget {
       create: (context) => UpdateFoodCubit(args.id),
       child: Scaffold(
         appBar: AppBar(),
+        resizeToAvoidBottomInset: false,
         body: BlocBuilder<UpdateFoodCubit, UpdateFoodState>(
           buildWhen: (previous, current) =>
               previous.loaded != current.loaded ||
@@ -82,14 +84,23 @@ class UpdateFoodPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextFormField(
+                                cursorColor: AppColors.brown1,
                                 controller: name..text = state.data!['name'],
                                 validator: isNotEmpty,
-                                decoration: InputDecoration(hintText: "Name"),
+                                decoration: const InputDecoration(
+                                  hintText: "Name",
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppColors.brown2,
+                                    ),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 8,
                               ),
                               TextFormField(
+                                cursorColor: AppColors.brown1,
                                 controller: price
                                   ..text = state.data!['price'].toString(),
                                 validator: validatePrice,
@@ -98,12 +109,20 @@ class UpdateFoodPage extends StatelessWidget {
                                   FilteringTextInputFormatter.allow(
                                       RegExp(r'\d|\.?')),
                                 ],
-                                decoration: InputDecoration(hintText: "Price"),
+                                decoration: const InputDecoration(
+                                  hintText: "Price",
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppColors.brown2,
+                                    ),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 8,
                               ),
                               TextFormField(
+                                cursorColor: AppColors.brown1,
                                 controller: points
                                   ..text =
                                       (state.data!['points'] ?? '').toString(),
@@ -111,18 +130,31 @@ class UpdateFoodPage extends StatelessWidget {
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
-                                decoration:
-                                    InputDecoration(hintText: "Repalce Point"),
+                                decoration: const InputDecoration(
+                                  hintText: "Repalce Point",
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppColors.brown2,
+                                    ),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 8,
                               ),
                               TextFormField(
+                                cursorColor: AppColors.brown1,
                                 controller: desc..text = state.data!['desc'],
                                 minLines: 3,
                                 maxLines: 7,
-                                decoration:
-                                    InputDecoration(hintText: 'Description'),
+                                decoration: const InputDecoration(
+                                  hintText: 'Description',
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppColors.brown2,
+                                    ),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 8,
@@ -178,6 +210,15 @@ class UpdateFoodPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      BlocSelector<UpdateFoodCubit, UpdateFoodState, bool>(
+                        selector: (state) => state.loading,
+                        builder: (context, state) => state
+                            ? const CircularProgressIndicator()
+                            : const SizedBox(),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
                       Builder(
                         builder: (context) => ElevatedButton(
                           onPressed: () =>
@@ -213,15 +254,6 @@ class UpdateFoodPage extends StatelessWidget {
                                 }
                               },
                               child: Text('save'))),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      BlocSelector<UpdateFoodCubit, UpdateFoodState, bool>(
-                        selector: (state) => state.loading,
-                        builder: (context, state) => state
-                            ? const CircularProgressIndicator()
-                            : const SizedBox(),
-                      )
                     ],
                   ),
                   Expanded(
@@ -261,16 +293,26 @@ class UpdateFoodPage extends StatelessWidget {
                                           children: [
                                             Expanded(
                                               child: TextFormField(
+                                                cursorColor: AppColors.brown1,
                                                 validator: isNotEmpty,
                                                 controller: state[index]
                                                     ['name'],
-                                                decoration: InputDecoration(
-                                                    hintText: 'name'),
+                                                decoration:
+                                                    const InputDecoration(
+                                                  hintText: 'name',
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: AppColors.brown2,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             const Text(':'),
                                             Expanded(
                                               child: TextFormField(
+                                                cursorColor: AppColors.brown1,
                                                 controller: state[index]
                                                     ['price'],
                                                 validator: validatePrice,
@@ -280,8 +322,16 @@ class UpdateFoodPage extends StatelessWidget {
                                                   FilteringTextInputFormatter
                                                       .allow(RegExp(r'\d|\.?')),
                                                 ],
-                                                decoration: InputDecoration(
-                                                    hintText: 'price'),
+                                                decoration:
+                                                    const InputDecoration(
+                                                  hintText: 'price',
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: AppColors.brown2,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             state[index]['loading']
@@ -299,14 +349,19 @@ class UpdateFoodPage extends StatelessWidget {
                                                                 index);
                                                       }
                                                     },
-                                                    icon:
-                                                        const Icon(Icons.done))
+                                                    icon: const Icon(
+                                                      Icons.done,
+                                                      color: AppColors.brown2,
+                                                    ))
                                                 : const SizedBox(),
                                             IconButton(
                                                 onPressed: () => ctx
                                                     .read<UpdateFoodCubit>()
                                                     .removeAddition(index),
-                                                icon: const Icon(Icons.delete))
+                                                icon: const Icon(
+                                                  Icons.delete,
+                                                  color: Colors.red,
+                                                ))
                                           ],
                                         ),
                                       );
