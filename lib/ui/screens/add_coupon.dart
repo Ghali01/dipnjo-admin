@@ -1,24 +1,20 @@
+import 'package:admin/logic/controllers/add_coupon.dart';
 import 'package:admin/logic/controllers/offer_dialog.dart';
+import 'package:admin/logic/models/add_coupon.dart';
 import 'package:admin/logic/models/offer_dialog.dart';
 import 'package:admin/utilities/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OfferDialog extends StatelessWidget {
-  final int food;
-  OfferDialog({Key? key, required this.food}) : super(key: key);
+class AddCouponDialog extends StatelessWidget {
+  AddCouponDialog({Key? key}) : super(key: key);
   GlobalKey<FormState> formKey = GlobalKey();
   TextEditingController value = TextEditingController(),
-      date = TextEditingController();
-  String? validateDate(String? text) {
+      keyC = TextEditingController();
+  String? isNotEmpty(String? text) {
     if (text == null || text.isEmpty) {
       return 'this field should not be empty';
-    } else {
-      RegExp regEx = RegExp(r'^\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}$');
-      if (!regEx.hasMatch(text)) {
-        return 'enter valid date';
-      }
     }
   }
 
@@ -36,10 +32,10 @@ class OfferDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OfferDialogCubit(),
-      child: BlocListener<OfferDialogCubit, OfferDialogState>(
+      create: (context) => AddCouponCubit(),
+      child: BlocListener<AddCouponCubit, AddCouponState>(
         listenWhen: (previous, current) => current.done,
-        listener: (context, state) => Navigator.of(context).pop(state.offer),
+        listener: (context, state) => Navigator.of(context).pop(state.data),
         child: Dialog(
           child: SizedBox(
             width: 200,
@@ -53,7 +49,7 @@ class OfferDialog extends StatelessWidget {
                     Builder(
                       builder: (context) {
                         return DropdownButtonFormField<String>(
-                            value: '1',
+                            value: 'p',
                             decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -63,16 +59,16 @@ class OfferDialog extends StatelessWidget {
                             ),
                             items: const [
                               DropdownMenuItem(
-                                value: '1',
+                                value: 'p',
                                 child: Text("percent"),
                               ),
                               DropdownMenuItem(
-                                value: '2',
-                                child: Text("new price"),
+                                value: 'c',
+                                child: Text("amount"),
                               ),
                             ],
                             onChanged: (v) =>
-                                context.read<OfferDialogCubit>().setType(v!));
+                                context.read<AddCouponCubit>().setType(v!));
                       },
                     ),
                     const SizedBox(
@@ -80,14 +76,9 @@ class OfferDialog extends StatelessWidget {
                     ),
                     TextFormField(
                       cursorColor: AppColors.brown1,
-                      controller: value,
-                      validator: validatePrice,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'\d|\.?'))
-                      ],
+                      controller: keyC,
                       decoration: const InputDecoration(
-                        hintText: "Offer Value",
+                        hintText: "Key",
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: AppColors.brown2,
@@ -99,14 +90,13 @@ class OfferDialog extends StatelessWidget {
                       height: 8,
                     ),
                     TextFormField(
-                      controller: date,
-                      validator: validateDate,
-                      keyboardType: TextInputType.datetime,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'\d|-|:| '))
-                      ],
+                      cursorColor: AppColors.brown1,
+                      controller: value,
+                      validator: validatePrice,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: const InputDecoration(
-                        hintText: 'yyyy-mm-dd hh:MM',
+                        hintText: "Coupon Value",
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: AppColors.brown2,
@@ -122,20 +112,20 @@ class OfferDialog extends StatelessWidget {
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               context
-                                  .read<OfferDialogCubit>()
-                                  .save(food, value.text, date.text);
+                                  .read<AddCouponCubit>()
+                                  .save(keyC.text, int.parse(value.text));
                             }
                           },
                           child: Text('save'));
                     }),
-                    BlocSelector<OfferDialogCubit, OfferDialogState, String>(
+                    BlocSelector<AddCouponCubit, AddCouponState, String>(
                       selector: (state) => state.error,
                       builder: (context, state) => Text(
                         state,
                         style: const TextStyle(color: Colors.red),
                       ),
                     ),
-                    BlocSelector<OfferDialogCubit, OfferDialogState, bool>(
+                    BlocSelector<AddCouponCubit, AddCouponState, bool>(
                       selector: (state) => state.loading,
                       builder: (context, state) => state
                           ? const CircularProgressIndicator()

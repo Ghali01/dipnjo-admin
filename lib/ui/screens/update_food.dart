@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:admin/logic/controllers/update_food.dart';
 import 'package:admin/logic/models/update_food.dart';
 import 'package:admin/ui/screens/offer_dialog.dart';
+import 'package:admin/ui/widgets/appbar.dart';
 import 'package:admin/utilities/colors.dart';
 import 'package:admin/utilities/routes.dart';
 import 'package:admin/utilities/server.dart';
@@ -47,7 +48,10 @@ class UpdateFoodPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => UpdateFoodCubit(args.id),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, 55),
+          child: AppAppBar(title: 'Order'),
+        ),
         resizeToAvoidBottomInset: false,
         body: BlocBuilder<UpdateFoodCubit, UpdateFoodState>(
           buildWhen: (previous, current) =>

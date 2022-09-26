@@ -13,4 +13,16 @@ class UsersAPI {
 
     throw Exception();
   }
+
+  static Future<void> chargePoints(String token, int points) async {
+    http.Response response =
+        await Server.send(http.put, 'accounts/charge', body: {
+      'points': points,
+      "token": token,
+    });
+    if (response.statusCode == 200) {
+      return;
+    }
+    throw Exception();
+  }
 }

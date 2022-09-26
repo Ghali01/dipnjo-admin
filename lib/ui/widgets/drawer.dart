@@ -22,6 +22,18 @@ class AppDrawer extends StatelessWidget {
       'args': null
     },
     {'label': 'Users', 'icon': 'users', 'route': Routes.users, 'args': null},
+    {
+      'label': 'Scan QR',
+      'icon': 'qr',
+      'route': Routes.chargePoints,
+      'args': null
+    },
+    {
+      'label': 'Coupons',
+      'icon': 'coupon',
+      'route': Routes.coupons,
+      'args': null
+    },
     // {'label': '', 'icon': '', 'route': null, 'args': null},
   ];
   @override

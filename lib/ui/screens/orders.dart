@@ -212,24 +212,17 @@ class OrdersPage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'user ${state[index]['user']['name']}',
-                                                style: const TextStyle(
-                                                    color: AppColors.brown2,
-                                                    fontSize: 18),
-                                              ),
-                                              const SizedBox(
-                                                width: 8,
-                                              ),
-                                              Text(
-                                                'status ${OrderStatus.values.where((e) => e.code == state[index]['status']).first.name}',
-                                                style: const TextStyle(
-                                                    color: AppColors.brown2,
-                                                    fontSize: 18),
-                                              ),
-                                            ],
+                                          Text(
+                                            'user ${state[index]['user']['name']}',
+                                            style: const TextStyle(
+                                                color: AppColors.brown2,
+                                                fontSize: 18),
+                                          ),
+                                          Text(
+                                            'status ${OrderStatus.values.where((e) => e.code == state[index]['status']).first.name}',
+                                            style: const TextStyle(
+                                                color: AppColors.brown2,
+                                                fontSize: 18),
                                           ),
                                           Text(
                                             dateFormat.format(DateTime.parse(
@@ -259,6 +252,14 @@ class OrdersPage extends StatelessWidget {
                       );
                     },
                   ),
+                ),
+                BlocSelector<OrdersCubit, OrdersState, bool>(
+                  selector: (state) => state.loading,
+                  builder: (context, state) => state
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : const SizedBox(),
                 ),
               ],
             );

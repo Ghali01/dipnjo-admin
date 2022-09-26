@@ -1,10 +1,13 @@
 import 'package:admin/ui/screens/add_food.dart';
 import 'package:admin/ui/screens/advertise.dart';
+import 'package:admin/ui/screens/charge_points.dart';
+import 'package:admin/ui/screens/coupons.dart';
 import 'package:admin/ui/screens/foods.dart';
 import 'package:admin/ui/screens/notification.dart';
 import 'package:admin/ui/screens/order.dart';
 import 'package:admin/ui/screens/orders.dart';
 import 'package:admin/ui/screens/proifle.dart';
+import 'package:admin/ui/screens/qr_scan.dart';
 import 'package:admin/ui/screens/send_notification.dart';
 import 'package:admin/ui/screens/update_food.dart';
 import 'package:admin/ui/screens/users.dart';
@@ -21,6 +24,9 @@ class Routes {
   static const sendNotification = '/sendNotification';
   static const users = '/users';
   static const profile = '/profile';
+  static const coupons = '/coupons';
+  static const qrScan = '/qrScan';
+  static const chargePoints = '/chargePoints';
 
   static Route? generator(RouteSettings settings) {
     switch (settings.name) {
@@ -66,6 +72,12 @@ class Routes {
             args: args,
           ),
         );
+      case coupons:
+        return MaterialPageRoute(builder: (_) => const CouponsPage());
+      case qrScan:
+        return MaterialPageRoute(builder: (_) => const QrScanPage());
+      case chargePoints:
+        return MaterialPageRoute(builder: (_) => ChargePointsPage());
     }
   }
 }

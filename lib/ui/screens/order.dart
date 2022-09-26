@@ -1,5 +1,6 @@
 import 'package:admin/logic/models/order.dart';
 import 'package:admin/logic/models/orders.dart';
+import 'package:admin/ui/widgets/appbar.dart';
 import 'package:admin/utilities/colors.dart';
 import 'package:admin/utilities/server.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,10 @@ class OrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: PreferredSize(
+        preferredSize: const Size(double.infinity, 55),
+        child: AppAppBar(title: 'Order'),
+      ),
       body: BlocProvider(
           create: (context) => OrderCubit(args.id),
           child: BlocBuilder<OrderCubit, OrderState>(
@@ -217,6 +221,25 @@ class OrderPage extends StatelessWidget {
                                 ),
                                 Text(
                                   state.data!['total'].toString(),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: AppColors.brown2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Delivery Fee:',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: AppColors.brown2,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                Text(
+                                  state.data!['fee'],
                                   style: const TextStyle(
                                     fontSize: 20,
                                     color: AppColors.brown2,

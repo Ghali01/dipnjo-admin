@@ -198,6 +198,14 @@ class ProfilePage extends StatelessWidget {
                     },
                   ),
                 ),
+                BlocSelector<ProfileCubit, ProfileState, bool>(
+                  selector: (state) => state.loading,
+                  builder: (context, state) => state
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : const SizedBox(),
+                ),
               ],
             );
           },
